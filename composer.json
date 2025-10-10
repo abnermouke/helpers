@@ -1,0 +1,29 @@
+{
+    "name": "abnermouke/helpers",
+    "description": "PHP辅助类工具集合",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Abnermouke\\Helpers\\": "src/"
+        },
+        "files": [
+            "function/data.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "abnermouke",
+            "email": "abnermouke@outlook.com",
+            "homepage": "https://www.yunnitec.com/"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-openssl": "*",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "ext-bcmath": "*",
+        "guzzlehttp/guzzle": "*"
+    }
+}
