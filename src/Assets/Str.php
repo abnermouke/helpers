@@ -81,4 +81,26 @@ class Str
         return static::$studlyCache[$key] = str_replace(' ', '', $value);
     }
 
+
+    /**
+     * 判断字符串是否以指定字符串开头
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2025-12-17 15:44:52
+     * @param $haystack
+     * @param $needles
+     * @return bool
+     */
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }
