@@ -2,6 +2,7 @@
 
 namespace Abnermouke\Helpers\Libraries;
 
+use Abnermouke\Helpers\Assets\Arr;
 use Abnermouke\Helpers\Assets\Str;
 
 /**
@@ -12,9 +13,9 @@ class SignatureLibrary
 
 
     //密钥KEY
-    private $key;
+    private string $key;
     //密钥SECRET
-    private $secret;
+    private string $secret;
 
     /**
      * 创建验签实例
@@ -25,7 +26,7 @@ class SignatureLibrary
      * @param $secret string 密钥Secret
      * @return SignatureLibrary
      */
-    public static function make($key, $secret)
+    public static function make(string $key, string $secret): static
     {
         //创建实例
         return (new SignatureLibrary($key, $secret));
@@ -36,7 +37,7 @@ class SignatureLibrary
      * @param $key string 密钥KEY
      * @param $secret string 密钥Secret
      */
-    public function __construct($key, $secret)
+    public function __construct(string $key, string $secret)
     {
         //设置密钥信息
         $this->key = $key;
@@ -52,17 +53,15 @@ class SignatureLibrary
      * @return array
      * @throws \Exception
      */
-    public function create($body)
+    public function create(array $body): array
     {
         //整理常规参数
         $__timestamp__ = time();
         $__nonceStr__ = Str::random(8);
         //生成签名
         $__signature__ = $this->signature($this->getSignatureString($body), $__timestamp__, $__nonceStr__);
-        //设置内容
-        $body = array_merge($body, compact('__timestamp__', '__nonceStr__', '__signature__'));
         //返回结果集
-        return $body;
+        return array_merge($body, compact('__timestamp__', '__nonceStr__', '__signature__'));
     }
 
     /**
@@ -75,7 +74,7 @@ class SignatureLibrary
      * @param $nonceStr string 随机字符串
      * @return string
      */
-    private function signature($params, $timestamp, $nonceStr)
+    private function signature(string $params, int $timestamp, string $nonceStr): string
     {
         //生成签名
         return  md5($this->key.$timestamp.$params.$nonceStr.$this->secret);
@@ -88,9 +87,9 @@ class SignatureLibrary
      * @Time 2023-04-18 23:06:37
      * @param $body array 传输参数
      * @param $expire_second int 签名有效秒数
-     * @return array|false|mixed
+     * @return mixed
      */
-    public function verify($body, $expire_second = 60)
+    public function verify(array $body, int $expire_second = 60): mixed
     {
         //移除系统参数
         $content = Arr::except($body, ['__timestamp__', '__nonceStr__', '__signature__']);
@@ -118,7 +117,8 @@ class SignatureLibrary
      * @param $body array 传输参数
      * @return string
      */
-    public function getSignatureString($body) {
+    public function getSignatureString(array $body): string
+    {
         //整理参数
         $params = [];
         //循环数组

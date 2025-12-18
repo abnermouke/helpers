@@ -2,7 +2,8 @@
 
 namespace Abnermouke\Helpers\Assets;
 
-use Abnermouke\Helpers\Library\BasicLibrary;
+
+use Abnermouke\Helpers\Libraries\BasicLibrary;
 
 /**
  * 仓库包方法集合
@@ -13,11 +14,11 @@ class Packagist
      * 查询指定包名
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:01:55
-     * @param $package_name
+     * @Time 2025-12-18 13:42:56
+     * @param string $package_name
      * @return bool
      */
-    public static function find($package_name)
+    public static function find(string $package_name): bool
     {
         //获取composer内容
         $contents = self::getComposerJson();
@@ -42,9 +43,9 @@ class Packagist
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
      * @Time 2025-10-09 16:59:41
-     * @return array|mixed
+     * @return array
      */
-    public static function getComposerJson()
+    public static function getComposerJson(): array
     {
         //获取根目录下composer.json
         $json_path = Path::root().'composer.json';

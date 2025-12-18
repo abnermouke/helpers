@@ -16,11 +16,11 @@ class BasicLibrary
      * 过滤字符表情（入DB库前处理）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:02
-     * @param $string
+     * @Time 2025-12-18 13:50:24
+     * @param string $string
      * @return mixed
      */
-    public static function filterEmoji($string)
+    public static function filterEmoji(string $string): mixed
     {
         //整理匹配规则
         $regex = '/(\\\u[ed][0-9a-f]{3})/i';
@@ -32,13 +32,13 @@ class BasicLibrary
      * 二维数组根据字段进行排序
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:09
-     * @param $array
-     * @param $field
-     * @param $sort
-     * @return mixed
+     * @Time 2025-12-18 13:50:42
+     * @param array $array
+     * @param string $field
+     * @param string $sort
+     * @return array
      */
-    public static function arraySequence($array, $field, $sort = 'SORT_ASC')
+    public static function arraySequence(array $array, string $field, string $sort = 'SORT_ASC'): array
     {
         //整理排序数组
         $arrSort = array();
@@ -60,12 +60,13 @@ class BasicLibrary
      * 转换时间信息
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $time
-     * @param $default
-     * @return int|mixed
+     * @Time 2025-12-18 13:51:14
+     * @param mixed $time
+     * @param mixed $default
+     * @return mixed
      */
-    public static function getTimestamp($time, $default = false) {
+    public static function getTimestamp(mixed $time, mixed $default = false): mixed
+    {
         //判断时间信息
         if (!is_numeric($time) && !empty($time)) {
             //初始化信息
@@ -79,12 +80,12 @@ class BasicLibrary
      * 友好的时间提示
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
+     * @Time 2025-12-18 13:51:30
      * @param $time string 提示时间
      * @param $units array ['n' => '刚刚 , 's' => '秒', 'm' => '分', 'h' => '小时', 'd' => '天', 'w' => '周', 'mon' => '月']
-     * @return array|false|int|mixed|string
+     * @return mixed
      */
-    public static function friendlyTime($time, $units = [])
+    public static function friendlyTime(string $time, array $units = []): mixed
     {
         //转换时间信息
         if (!($time = static::getTimestamp($time))) {
@@ -133,15 +134,15 @@ class BasicLibrary
      * 友好的数字提示
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
+     * @Time 2025-12-18 13:52:03
      * @param $number int 数字
      * @param $units array ['w' => 'w+', 'k' => 'k+']
-     * @return mixed|string
+     * @return mixed
      */
-    public static function friendlyNumber($number, $units = [])
+    public static function friendlyNumber(int $number, array $units = []): mixed
     {
         //判断长度
-        if ((int)$number >= 10000) {
+        if ($number >= 10000) {
             //获取倍数
             $number = round($number / 10000 * 100) / 100 . data_get($units, 'w', 'w+');
         } elseif ($number >= 1000) {
@@ -156,12 +157,13 @@ class BasicLibrary
      * 友好的重量提示
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
+     * @Time 2025-12-18 13:52:35
      * @param $heft int 重量
-     * @param $units array ['d' => '吨', 'j' => '斤']
-     * @return string
+     * * @param $units array ['d' => '吨', 'j' => '斤']
+ * @return string
      */
-    public static function friendlyHeft($heft = 0, $units = []) {
+    public static function friendlyHeft(int $heft = 0, array $units = []): string
+    {
         //判断是否大于吨
         if ($heft >= 2000) {
             //返回信息
@@ -175,11 +177,11 @@ class BasicLibrary
      * 友好的金额提示
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $amount float 金额
+     * @Time 2025-12-18 13:53:01
+     * @param float|int $amount
      * @return string
      */
-    public static function friendlyAmount($amount = 0)
+    public static function friendlyAmount(float|int $amount = 0): string
     {
         //设置千
         $thousand = 1000;
@@ -204,11 +206,12 @@ class BasicLibrary
      * 友好的文件大小提示
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $file_size float 文件大小
+     * @Time 2025-12-18 13:53:21
+     * @param int|float $file_size
      * @return string
      */
-    public static function friendlyFileSize($file_size = 0) {
+    public static function friendlyFileSize(int|float $file_size = 0): string
+    {
         //整理小数点位数
         $decimal_step = 0;
         //整理单位描述
@@ -249,12 +252,13 @@ class BasicLibrary
      * 获取指定格式时间
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
+     * @Time 2025-12-18 13:53:43
      * @param $time mixed 日期｜时间
      * @param $format string 指定格式
-     * @return false|string
+     * @return bool|string
      */
-    public static function formatDateTime($time = false, $format = 'Y-m-d H:i:s') {
+    public static function formatDateTime(mixed $time = false, string $format = 'Y-m-d H:i:s'): bool|string
+    {
         //返回指定格式时间
         return date($format, static::getTimestamp($time));
     }
@@ -263,11 +267,11 @@ class BasicLibrary
      * 色值转RGB
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $hexColor string  色值
+     * @Time 2025-12-18 13:54:04
+     * @param string $hexColor
      * @return array
      */
-    public static function hexToRgb($hexColor)
+    public static function hexToRgb(string $hexColor): array
     {
         $color = str_replace('#','',$hexColor);
         if (strlen($color)> 3){
@@ -290,20 +294,20 @@ class BasicLibrary
      * 获取指定长度数字
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $length int 长度
-     * @return false|string
+     * @Time 2025-12-18 13:54:17
+     * @param int $length
+     * @return bool|string
      */
-    public static function getNumber($length = 6)
+    public static function getNumber(int $length = 6): bool|string
     {
         //生成数字
         $str = '1234567890';
         //判断数字长度
         $len = (int)(ceil($length/strlen($str)));
         //整理数字长度
-        $str = (int)($len) > 0 ? str_repeat($str, ((int)$len + 1)) : $str;
+        $str = $len > 0 ? str_repeat($str, ($len + 1)) : $str;
         //截取长度
-        $number = substr(str_shuffle($str), 0, (int)($length));
+        $number = substr(str_shuffle($str), 0, $length);
         //判断第一位是否为0
         return (int)($number[0]) === 0 ? static::getNumber($length) : $number;
     }
@@ -312,11 +316,11 @@ class BasicLibrary
      * 对象转数组
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
-     * @param $object mixed 对象内容
-     * @return array|mixed
+     * @Time 2025-12-18 13:54:54
+     * @param mixed $object
+     * @return array
      */
-    public static function objectToArray($object)
+    public static function objectToArray(mixed $object): array
     {
         return $object && $object !== '[]' ? (is_array($object) ? $object : json_decode($object, true)) : [];
     }
@@ -325,10 +329,12 @@ class BasicLibrary
      * 创建唯一编号（常用于订单号生成）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:52:17
+     * @Time 2025-12-18 13:55:08
      * @return string
+     * @throws \Exception
      */
-    public static function createSn() {
+    public static function createSn(): string
+    {
         //整理开头信息
         $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
         //整理订单编号
@@ -339,12 +345,12 @@ class BasicLibrary
      * 随机昵称
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:48
-     * @param $last_name
-     * @param $first_name
+     * @Time 2025-12-18 13:55:27
+     * @param string $last_name
+     * @param string $first_name
      * @return string
      */
-    public static function randomNickname($last_name = 'XX', $first_name = '')
+    public static function randomNickname(string $last_name = 'XX', string $first_name = ''): string
     {
         //设置首名
         $first_names = ['快乐的', '冷静的', '醉熏的', '潇洒的', '糊涂的', '积极的', '冷酷的', '深情的', '粗暴的', '温柔的', '可爱的', '愉快的', '义气的', '认真的', '威武的', '帅气的', '传统的', '潇洒的', '漂亮的', '自然的', '专一的', '听话的', '昏睡的', '狂野的', '等待的', '搞怪的', '幽默的', '魁梧的', '活泼的', '开心的', '高兴的', '超帅的', '留胡子的', '坦率的', '直率的', '轻松的', '痴情的', '完美的', '精明的', '无聊的', '有魅力的', '丰富的', '繁荣的', '饱满的', '炙热的', '暴躁的', '碧蓝的', '俊逸的', '英勇的', '健忘的', '故意的', '无心的', '土豪的', '朴实的', '兴奋的', '幸福的', '淡定的', '不安的', '阔达的', '孤独的', '独特的', '疯狂的', '时尚的', '落后的', '风趣的', '忧伤的', '大胆的', '爱笑的', '矮小的', '健康的', '合适的', '玩命的', '沉默的', '斯文的', '香蕉','苹果','鲤鱼','鳗鱼','任性的', '细心的', '粗心的', '大意的', '甜甜的', '酷酷的', '健壮的', '英俊的', '霸气的', '阳光的', '默默的', '大力的', '孝顺的', '忧虑的', '着急的', '紧张的', '善良的', '凶狠的', '害怕的', '重要的', '危机的', '欢喜的', '欣慰的', '满意的', '跳跃的', '诚心的', '称心的', '如意的', '怡然的', '娇气的', '无奈的', '无语的', '激动的', '愤怒的', '美好的', '感动的', '激情的', '激昂的', '震动的', '虚拟的', '超级的', '寒冷的', '精明的', '明理的', '犹豫的', '忧郁的', '寂寞的', '奋斗的', '勤奋的', '现代的', '过时的', '稳重的', '热情的', '含蓄的', '开放的', '无辜的', '多情的', '纯真的', '拉长的', '热心的', '从容的', '体贴的', '风中的', '曾经的', '追寻的', '儒雅的', '优雅的', '开朗的', '外向的', '内向的', '清爽的', '文艺的', '长情的', '平常的', '单身的', '伶俐的', '高大的', '懦弱的', '柔弱的', '爱笑的', '乐观的', '耍酷的', '酷炫的', '神勇的', '年轻的', '唠叨的', '瘦瘦的', '无情的', '包容的', '顺心的', '畅快的', '舒适的', '靓丽的', '负责的', '背后的', '简单的', '谦让的', '彩色的', '缥缈的', '欢呼的', '生动的', '复杂的', '慈祥的', '仁爱的', '魔幻的', '虚幻的', '淡然的', '受伤的', '雪白的', '高高的', '糟糕的', '顺利的', '闪闪的', '羞涩的', '缓慢的', '迅速的', '优秀的', '聪明的', '含糊的', '俏皮的', '淡淡的', '坚强的', '平淡的', '欣喜的', '能干的', '灵巧的', '友好的', '机智的', '机灵的', '正直的', '谨慎的', '俭朴的', '殷勤的', '虚心的', '辛勤的', '自觉的', '无私的', '无限的', '踏实的', '老实的', '现实的', '可靠的', '务实的', '拼搏的', '个性的', '粗犷的', '活力的', '成就的', '勤劳的', '单纯的', '落寞的', '朴素的', '悲凉的', '忧心的', '洁净的', '清秀的', '自由的', '小巧的', '单薄的', '贪玩的', '刻苦的', '干净的', '壮观的', '和谐的', '文静的', '调皮的', '害羞的', '安详的', '自信的', '端庄的', '坚定的', '美满的', '舒心的', '温暖的', '专注的', '勤恳的', '美丽的', '腼腆的', '优美的', '甜美的', '甜蜜的', '整齐的', '动人的', '典雅的', '尊敬的', '舒服的', '妩媚的', '秀丽的', '喜悦的', '甜美的', '彪壮的', '强健的', '大方的', '俊秀的', '聪慧的', '迷人的', '陶醉的', '悦耳的', '动听的', '明亮的', '结实的', '魁梧的', '标致的', '清脆的', '敏感的', '光亮的', '大气的', '老迟到的', '知性的', '冷傲的', '呆萌的', '野性的', '隐形的', '笑点低的', '微笑的', '笨笨的', '难过的', '沉静的', '火星上的', '失眠的', '安静的', '纯情的', '要减肥的', '迷路的', '烂漫的', '哭泣的', '贤惠的', '苗条的', '温婉的', '发嗲的', '会撒娇的', '贪玩的', '执着的', '眯眯眼的', '花痴的', '想人陪的', '眼睛大的', '高贵的', '傲娇的', '心灵美的', '爱撒娇的', '细腻的', '天真的', '怕黑的', '感性的', '飘逸的', '怕孤独的', '忐忑的', '高挑的', '傻傻的', '冷艳的', '爱听歌的', '还单身的', '怕孤单的', '懵懂的'];
@@ -358,13 +364,14 @@ class BasicLibrary
      * 隐藏字符串信息
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:59:28
-     * @param $string string 字符串
-     * @param $replace string 替换文字
+     * @Time 2025-12-18 13:55:58
+     * @param string $string
+     * @param string $replace
+     * @param string $type
      * @return string
      * @throws \Exception
      */
-    public static function hideString($string, $replace = '*', $type = 'string')
+    public static function hideString(string $string, string $replace = '*', string $type = 'string'): string
     {
         //判断是否为邮箱
         if (ValidateLibrary::email($string) || $type == 'email') {
@@ -396,12 +403,13 @@ class BasicLibrary
      * 字符串提取纯文本
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:00:11
-     * @param $string string 字符串
-     * @param $num int 指定长度
-     * @return array|mixed|string|string[]
+     * @Time 2025-12-18 13:56:43
+     * @param string $string
+     * @param int $num
+     * @return mixed
      */
-    public static function stringToText($string, $num = 0){
+    public static function stringToText(string $string, int $num = 0): mixed
+    {
         //判断字符串
         if($string){
             //把一些预定义的 HTML 实体转换为字符
@@ -421,11 +429,11 @@ class BasicLibrary
      * 获取链接参数
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:01:35
-     * @param $url string 链接
+     * @Time 2025-12-18 13:56:57
+     * @param string $url
      * @return array
      */
-    public static function parseUrlParams($url)
+    public static function parseUrlParams(string $url): array
     {
         //初始化链接信息
         $url_info = parse_url($url);
@@ -449,12 +457,12 @@ class BasicLibrary
      * 查询是否存在与某个数组（一维数组）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:01:55
+     * @Time 2025-12-18 13:57:21
      * @param $search string 查询内容
      * @param $arr array 查询数组
      * @return bool
      */
-    public static function existArr($search, $arr)
+    public static function existArr(string $search, array $arr): bool
     {
         //搜索值
         $res = array_search($search, $arr);
@@ -466,13 +474,13 @@ class BasicLibrary
      * 转换金额
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:03:09
-     * @param $amount int 金额（建议金额单位为分）
-     * @param $decimal int 保留几位小数
-     * @param $ratio int 倍数
+     * @Time 2025-12-18 13:57:57
+     * @param float|int $amount 金额（建议金额单位为分）
+     * @param int $decimal 保留几位小数
+     * @param int $ratio 倍数
      * @return string
      */
-    public static function convertAmount($amount, $decimal = 2, $ratio = 100)
+    public static function convertAmount(float|int $amount, int $decimal = 2, int $ratio = 100): string
     {
         return sprintf('%.'.(int)$decimal.'f', ($ratio > 0 ? (int)$amount/$ratio : $amount));
     }
@@ -481,13 +489,13 @@ class BasicLibrary
      * 计算金额百分比
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2023-04-18 22:12:17
-     * @param $amount int 金额（建议金额单位为分）
-     * @param $percent float 指定百分比
-     * @param $ratio int 倍数
+     * @Time 2025-12-18 13:58:42
+     * @param int|float $amount 金额（建议金额单位为分）
+     * @param int $percent 指定百分比
+     * @param int $ratio 倍数
      * @return int
      */
-    public static function computePercentAmount($amount, $percent = 50, $ratio = 0)
+    public static function computePercentAmount(int|float $amount, int $percent = 50, int $ratio = 0): int
     {
         return (int)(floor($amount * $percent / $ratio));
     }
@@ -496,11 +504,11 @@ class BasicLibrary
      * XML转数组
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:04:07
-     * @param $xml mixed XML实例
+     * @Time 2025-12-18 13:59:08
+     * @param mixed $xml XML实例
      * @return mixed
      */
-    public static  function xmlToArray($xml)
+    public static  function xmlToArray(mixed $xml): mixed
     {
         //禁止引用外部xml实体
         libxml_disable_entity_loader(true);
@@ -513,11 +521,11 @@ class BasicLibrary
      * 获取更短Md5随机唯一字符
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 17:07:29
-     * @param $md5_hash_str string MD5结果
-     * @return array|string|string[]
+     * @Time 2025-12-18 13:59:29
+     * @param string $md5_hash_str MD5结果
+     * @return array|string
      */
-    public static function shortMd5($md5_hash_str)
+    public static function shortMd5(string $md5_hash_str): array|string
     {
         //初始化解析字段
         $md5_bin_str = '';
@@ -538,15 +546,16 @@ class BasicLibrary
      * 移除数组中无效内容（为空｜为null）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2023-09-20 00:13:11
-     * @param $array
-     * @return mixed
+     * @Time 2025-12-18 14:00:00
+     * @param array $array
+     * @return array
      */
-    public static function removeInvalidArray($array) {
+    public static function removeInvalidArray(array $array): array
+    {
         //循环数组信息
         foreach ($array as $k => $value) {
             //判断信息
-            if (empty($value) || is_null($value)) {
+            if (empty($value)) {
                 //移除信息
                 unset($array[$k]);
             }
@@ -559,12 +568,12 @@ class BasicLibrary
      * 选项内容携带索引值
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2023-09-21 10:48:33
-     * @param $options
-     * @param $fields
+     * @Time 2025-12-18 14:00:27
+     * @param array $options
+     * @param array $fields
      * @return array
      */
-    public static function optionsWithIndex($options, $fields = ['value', 'name', 'index'])
+    public static function optionsWithIndex(array $options, array $fields = ['value', 'name', 'index']): array
     {
         //设置基础数据
         $values = [];
@@ -585,11 +594,11 @@ class BasicLibrary
      * 整理请求参数（替换不规则字段）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2023-10-20 00:07:25
-     * @param $params
+     * @Time 2025-12-18 14:00:54
+     * @param array $params
      * @return mixed
      */
-    public static function arrangeRequetParams($params)
+    public static function arrangeRequestParams(array $params): mixed
     {
         //判断信息
         if ($params) {

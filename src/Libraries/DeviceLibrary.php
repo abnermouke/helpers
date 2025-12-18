@@ -16,7 +16,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function mobile($ua = false)
+    public static function mobile(mixed $ua = false): bool
     {
         //判断设备
         if (self::ipod($ua) || self::ipad($ua) || self::iphone($ua) || self::android($ua)) {
@@ -35,7 +35,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function pc($ua = false)
+    public static function pc(mixed $ua = false): bool
     {
         //判断设备
         if (self::windows($ua) || self::mac($ua) || self::unix($ua) || self::linux($ua)) {
@@ -54,7 +54,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function windows($ua = false)
+    public static function windows(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -75,7 +75,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function unix($ua = false)
+    public static function unix(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -96,7 +96,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function linux($ua = false)
+    public static function linux(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -117,7 +117,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function mac($ua = false)
+    public static function mac(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -138,7 +138,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function ipod($ua = false)
+    public static function ipod(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -159,7 +159,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function ipad($ua = false)
+    public static function ipad(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -180,7 +180,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function iphone($ua = false)
+    public static function iphone(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -201,7 +201,7 @@ class DeviceLibrary
      * @param $ua mixed 用户请求UA
      * @return bool
      */
-    public static function android($ua = false)
+    public static function android(mixed $ua = false): bool
     {
         //获取正确UA
         $agent = self::getUserAgent($ua);
@@ -215,17 +215,38 @@ class DeviceLibrary
     }
 
     /**
-     * 初始化实际UA
-     * @Author Abnermouke <abnermouke@outlook.com>
-     * @Originate in Abnermouke's MBP
-     * @Time 2022-03-17 03:16:59
+     * 是否为微信浏览器访问
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2025-12-18 14:09:18
      * @param $ua mixed 用户请求UA
-     * @return mixed|string|null
+     * @return bool
      */
-    private static function getUserAgent($ua = false)
+    public static function wechat(mixed $ua = false): bool
+    {
+        //获取正确UA
+        $agent = self::getUserAgent($ua);
+        //判断是否为对应设备访问
+        if (strpos($agent, 'MicroMessenger')) {
+            //返回正确
+            return true;
+        }
+        //返回错误
+        return false;
+    }
+
+    /**
+     * 初始化实际UA
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2025-12-18 14:02:22
+     * @param mixed $ua
+     * @return mixed
+     */
+    private static function getUserAgent(mixed $ua = false): mixed
     {
         //判断是否设置UA
-        return strtolower($ua ? $ua : $_SERVER["HTTP_USER_AGENT"]);
+        return strtolower($ua ?: $_SERVER["HTTP_USER_AGENT"]);
     }
 
 }

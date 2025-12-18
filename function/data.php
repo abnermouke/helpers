@@ -12,7 +12,7 @@ if (! function_exists('data_fill')) {
      * @param  mixed  $value
      * @return mixed
      */
-    function data_fill(&$target, $key, $value)
+    function data_fill(mixed &$target, string|array $key, mixed $value): mixed
     {
         return data_set($target, $key, $value, false);
     }
@@ -23,11 +23,11 @@ if (! function_exists('data_get')) {
      * Get an item from an array or object using "dot" notation.
      *
      * @param  mixed  $target
-     * @param  string|array|int|null  $key
+     * @param  mixed  $key
      * @param  mixed  $default
      * @return mixed
      */
-    function data_get($target, $key, $default = null)
+    function data_get(mixed $target, mixed $key, mixed $default = null): mixed
     {
         if (is_null($key)) {
             return $target;
@@ -79,7 +79,7 @@ if (! function_exists('data_set')) {
      * @param  bool  $overwrite
      * @return mixed
      */
-    function data_set(&$target, $key, $value, $overwrite = true)
+    function data_set(mixed &$target, string|array $key, mixed $value, bool $overwrite = true): mixed
     {
         $segments = is_array($key) ? $key : explode('.', $key);
 
@@ -140,7 +140,7 @@ if (! function_exists('value')) {
      * @param  mixed  ...$args
      * @return mixed
      */
-    function value($value, ...$args)
+    function value(mixed $value, mixed ...$args): mixed
     {
         return $value instanceof Closure ? $value(...$args) : $value;
     }

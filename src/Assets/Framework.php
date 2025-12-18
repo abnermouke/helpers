@@ -18,7 +18,7 @@ class Framework
      * @Time 2025-10-09 17:03:20
      * @return bool
      */
-    public static function thinkphp()
+    public static function thinkphp(): bool
     {
         //判断是否存在thinkphp
         return Packagist::find('topthink/think');
@@ -31,7 +31,7 @@ class Framework
      * @Time 2025-10-09 17:03:28
      * @return bool
      */
-    public static function laravel()
+    public static function laravel(): bool
     {
         //判断是否存在laravel
         return Packagist::find('laravel/laravel');
@@ -44,7 +44,7 @@ class Framework
      * @Time 2025-10-09 17:03:34
      * @return bool
      */
-    public static function hyperf()
+    public static function hyperf(): bool
     {
         //判断是否存在hyperf
         return Packagist::find('hyperf/framework');

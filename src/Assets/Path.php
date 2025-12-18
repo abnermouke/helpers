@@ -12,11 +12,11 @@ class Path
      * 获取项目路径
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:45:48
-     * @param $dictionary
+     * @Time 2025-12-18 13:43:58
+     * @param string $dictionary
      * @return string
      */
-    public static function root($dictionary = '')
+    public static function root(string $dictionary = ''): string
     {
         //替换信息
         $root_path = str_replace(('vendor'.DIRECTORY_SEPARATOR.'abnermouke'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Assists'), '', __DIR__);
@@ -28,11 +28,11 @@ class Path
      * 获取APP路径
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:45:56
-     * @param $path
+     * @Time 2025-12-18 13:44:13
+     * @param string $path
      * @return string
      */
-    public static function app($path = '')
+    public static function app(string $path = ''): string
     {
         //返回地址
         return static::target('app', $path);
@@ -42,11 +42,11 @@ class Path
      * 获取public路径
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:03
-     * @param $path
+     * @Time 2025-12-18 13:44:37
+     * @param string $path
      * @return string
      */
-    public static function public($path = '')
+    public static function public(string $path = ''): string
     {
         //返回地址
         return static::target('public', $path);
@@ -57,11 +57,11 @@ class Path
      * 获取vendor路径
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:10
-     * @param $path
+     * @Time 2025-12-18 13:44:57
+     * @param string $path
      * @return string
      */
-    public static function vendor($path = '')
+    public static function vendor(string $path = ''): string
     {
         //返回地址
         return static::target('vendor', $path);
@@ -71,12 +71,12 @@ class Path
      * 获取日志记录目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:25
-     * @param $mkdir
-     * @param $mode
+     * @Time 2025-12-18 13:45:13
+     * @param bool $mkdir
+     * @param int $mode
      * @return string
      */
-    public static function logger($mkdir = true, $mode = 0755)
+    public static function logger(bool $mkdir = true, int $mode = 0755): string
     {
         //判断框架
         if (Framework::laravel()) {
@@ -105,11 +105,11 @@ class Path
      * 格式化路径
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:43
-     * @param $path
-     * @return array|string|string[]
+     * @Time 2025-12-18 13:45:31
+     * @param string $path
+     * @return array|string
      */
-    public static function format($path)
+    public static function format(string $path): array|string
     {
         //整理信息
         return $path ? str_replace(['/', '\''], DIRECTORY_SEPARATOR, $path) : '';
@@ -119,17 +119,17 @@ class Path
      * 获取指定目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:46:16
-     * @param $root_dictionary
-     * @param $path
+     * @Time 2025-12-18 13:45:50
+     * @param string $root_dictionary
+     * @param string $path
      * @return string
      */
-    public static function target($root_dictionary, $path = '')
+    public static function target(string $root_dictionary, string $path = ''): string
     {
         //获取根目录
         $root_path = static::root($root_dictionary);
         //判断是否追加路径
-        if ($path && (($path = static::formatPath($path)) !== DIRECTORY_SEPARATOR)) {
+        if ($path && (($path = static::format($path)) !== DIRECTORY_SEPARATOR)) {
             //追加地址
             $root_path .= DIRECTORY_SEPARATOR.$path;
         }

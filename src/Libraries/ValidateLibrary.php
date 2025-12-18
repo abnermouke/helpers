@@ -18,7 +18,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function email($email)
+    public static function email(string $email): string|bool
     {
         //验证规则
         $regular = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/';
@@ -35,7 +35,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function link($link)
+    public static function link(string $link): string|bool
     {
         //验证规则
         $regular = '/[a-zA-z]+:\/\/[^\s]*/i';
@@ -52,7 +52,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function ip($ip)
+    public static function ip(string $ip): string|bool
     {
         //验证规则
         $regular = '/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/';
@@ -69,7 +69,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function qq($qq)
+    public static function qq(string $qq): string|bool
     {
         //验证规则
         $regular = '/^[1-9][0-9]{4,}$/';
@@ -86,7 +86,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function idCard($id_card)
+    public static function idCard(string $id_card): string|bool
     {
         //验证规则
         $regular = '/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/';
@@ -103,7 +103,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function bankCard($bank_card)
+    public static function bankCard(string $bank_card): string|bool
     {
         //验证规则
         $regular = '/^(\d{16}|\d{19}|\d{17})$/';
@@ -120,7 +120,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function mobile($mobile)
+    public static function mobile(string $mobile): string|bool
     {
         //验证规则
         $regular = '/^1[3456789]\d{9}$/';
@@ -137,7 +137,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function tel($tel)
+    public static function tel(string $tel): string|bool
     {
         //验证规则
         $regular = '/^([0-9]{3,4}-)?[0-9]{7,8}$/';
@@ -154,7 +154,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function onlyZh($string)
+    public static function onlyZh(string $string): string|bool
     {
         //验证规则
         $regular = '/^[\x{4e00}-\x{9fa5}]+$/u';
@@ -171,7 +171,7 @@ class ValidateLibrary
      * @return bool|string
      * @throws \Exception
      */
-    public static function hasZh($string)
+    public static function hasZh(string $string): string|bool
     {
         //验证规则
         $regular = '/[\x{4e00}-\x{9fa5}]/u';
@@ -187,7 +187,7 @@ class ValidateLibrary
      * @param $string string 验证文案
      * @return bool
      */
-    public static function hasHtml($string)
+    public static function hasHtml(string $string): bool
     {
         //判断是否包含html
         if ($string !== strip_tags($string)) {
@@ -206,15 +206,10 @@ class ValidateLibrary
      * @param $ua string 访问UA
      * @return bool
      */
-    public static function wechatBroswer($ua)
+    public static function wechatBrowser(string $ua): bool
     {
-        //判断是否为微信浏览器
-        if (strpos($ua, 'MicroMessenger') !== false) {
-            //返回验证结果
-            return true;
-        }
         //返回验证结果
-        return false;
+        return DeviceLibrary::wechat($ua);
     }
 
     /**
@@ -224,9 +219,9 @@ class ValidateLibrary
      * @Time 2025-10-10 12:55:42
      * @param $regular string 验证（正则匹配）规则
      * @param $string string 验证|匹配文案
-     * @return false|mixed
+     * @return string|bool
      */
-    private static function validate($regular, $string)
+    private static function validate(string $regular, string $string): string|bool
     {
         //正则匹配
         $ret = preg_match($regular, $string, $matched);

@@ -19,9 +19,9 @@ class AesLibrary
      * @param $iv string 加密IV（16位）
      * @param $cipher_algo string 加密方法
      * @param $options int 加密格式选项
-     * @return false|string
+     * @return bool|string
      */
-    public static function encrypt($data, $aes_encrypt_key, $iv, $cipher_algo = 'AES-128-CBC', $options = OPENSSL_RAW_DATA)
+    public static function encrypt(array $data, string $aes_encrypt_key, string $iv, string $cipher_algo = 'AES-128-CBC', int $options = OPENSSL_RAW_DATA): bool|string
     {
         //整理解密内容
         $encrypt_data = json_encode($data);
@@ -41,10 +41,10 @@ class AesLibrary
      * @param $iv string 加密IV（16位）
      * @param $cipher_algo string 加密方法
      * @param $options int 加密格式选项
-     * @param $base64_encoding int 是否已加密（BASE64）
+     * @param $base64_encoding bool 是否已加密（BASE64）
      * @return mixed
      */
-    public static function decrypt($encrypt_string, $aes_encrypt_key, $iv, $cipher_algo = 'AES-128-CBC', $options = OPENSSL_RAW_DATA, $base64_encoding = true)
+    public static function decrypt(string $encrypt_string, string $aes_encrypt_key, string $iv, string $cipher_algo = 'AES-128-CBC', int $options = OPENSSL_RAW_DATA, bool $base64_encoding = true): mixed
     {
         //初始化信息
         $encrypt_string = $base64_encoding ? base64_decode($encrypt_string) : $encrypt_string;

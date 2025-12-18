@@ -13,15 +13,15 @@ class LoggerLibrary
 
 
     //日志记录目录
-    private static $loggerPath;
+    private static string $loggerPath;
 
     /**
      * 创建日志目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-10 12:52:57
+     * @Time 2025-12-18 14:04:29
      */
-    private static function create()
+    private static function create(): void
     {
         //初始化目录
         static::$loggerPath = Path::logger();
@@ -31,13 +31,13 @@ class LoggerLibrary
      * 记录日志
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-10 12:52:45
-     * @param $alias string 识别标识
-     * @param $content mixed 记录内容 json|array|string|mixed
-     * @param $logger_path string 自定义目录
+     * @Time 2025-12-18 14:04:59
+     * @param string $alias 识别标识
+     * @param mixed $content 记录内容 json|array|string|mixed
+     * @param string $logger_path 自定义目录
      * @return bool
      */
-    public static function record($alias, $content, $logger_path = '')
+    public static function record(string $alias, mixed $content, string $logger_path = ''): bool
     {
         //初始化目录
         static::create();
@@ -63,12 +63,13 @@ class LoggerLibrary
      * 设置文件内容
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-10 12:51:27
-     * @param $alias
-     * @param $content
+     * @Time 2025-12-18 14:05:42
+     * @param string $alias
+     * @param mixed $content
      * @return string
+     * @throws \Exception
      */
-    private static function contents($alias, $content)
+    private static function contents(string $alias, mixed $content): string
     {
         //整理基础结构
         $contents = [];

@@ -13,11 +13,11 @@ class File
      * 获取目录下目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:47:43
-     * @param $directory
+     * @Time 2025-12-18 13:23:36
+     * @param string $directory
      * @return array
      */
-    public static function dictionaries($directory)
+    public static function dictionaries(string $directory): array
     {
         //整理目录列表
         $dictionaries = [];
@@ -50,11 +50,11 @@ class File
      * 获取目录下文件
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:47:51
-     * @param $directory
+     * @Time 2025-12-18 13:23:48
+     * @param string $directory
      * @return array
      */
-    public static function files($directory)
+    public static function files(string $directory): array
     {
         //整理文件列表
         $files = [];
@@ -87,11 +87,11 @@ class File
      * 判断文件/目录是否存在
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:47:59
-     * @param $path
+     * @Time 2025-12-18 13:24:04
+     * @param string $path
      * @return bool
      */
-    public static function exists($path)
+    public static function exists(string $path): bool
     {
         return file_exists($path);
     }
@@ -100,11 +100,11 @@ class File
      * 判断文件或目录是否丢失
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:06
-     * @param $path
+     * @Time 2025-12-18 13:24:21
+     * @param string $path
      * @return bool
      */
-    public static function missing($path)
+    public static function missing(string $path): bool
     {
         return !static::exists($path);
     }
@@ -113,12 +113,12 @@ class File
      * 获取文件HASH
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:12
-     * @param $path
-     * @param $algorithm
-     * @return false|string
+     * @Time 2025-12-18 13:24:41
+     * @param string $path
+     * @param string $algorithm
+     * @return bool|string
      */
-    public static function hash($path, $algorithm = 'md5')
+    public static function hash(string $path, string $algorithm = 'md5'): bool|string
     {
         return hash_file($algorithm, $path);
     }
@@ -127,13 +127,13 @@ class File
      * 写入文件内容
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:19
-     * @param $path
-     * @param $contents
-     * @param $lock
-     * @return false|int
+     * @Time 2025-12-18 13:25:06
+     * @param string $path
+     * @param string $contents
+     * @param bool $lock
+     * @return bool|int
      */
-    public static function put($path, $contents, $lock = false)
+    public static function put(string $path, string $contents, bool $lock = false): bool|int
     {
         return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
     }
@@ -142,12 +142,12 @@ class File
      * 追加文件内容
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:25
-     * @param $path
-     * @param $content
-     * @return false|int
+     * @Time 2025-12-18 13:30:49
+     * @param string $path
+     * @param string $content
+     * @return bool|int
      */
-    public static function append($path, $content)
+    public static function append(string $path, string $content): bool|int
     {
         return file_put_contents($path, $content, FILE_APPEND);
     }
@@ -170,12 +170,12 @@ class File
      * 复制文件
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:38
-     * @param $path
-     * @param $target
+     * @Time 2025-12-18 13:32:15
+     * @param string $path
+     * @param string $target
      * @return bool
      */
-    public static function copy($path, $target)
+    public static function copy(string $path, string $target): bool
     {
         return copy($path, $target);
     }
@@ -184,11 +184,11 @@ class File
      * 获取文件名称
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:45
-     * @param $path
-     * @return array|string
+     * @Time 2025-12-18 13:33:04
+     * @param string $path
+     * @return string|array
      */
-    public static function name($path)
+    public static function name(string $path): string|array
     {
         return pathinfo($path, PATHINFO_FILENAME);
     }
@@ -197,11 +197,11 @@ class File
      * 获取文件基础路径名称
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:52
-     * @param $path
+     * @Time 2025-12-18 13:36:44
+     * @param string $path
      * @return array|string
      */
-    public static function basename($path)
+    public static function basename(string $path): array|string
     {
         return pathinfo($path, PATHINFO_BASENAME);
     }
@@ -210,11 +210,11 @@ class File
      * 获取文件目录名称
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:48:58
-     * @param $path
+     * @Time 2025-12-18 13:37:19
+     * @param string $path
      * @return array|string
      */
-    public static function dirname($path)
+    public static function dirname(string $path): array|string
     {
         return pathinfo($path, PATHINFO_DIRNAME);
     }
@@ -223,11 +223,11 @@ class File
      * 获取文件后缀
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:04
-     * @param $path
-     * @return array|string
+     * @Time 2025-12-18 13:37:43
+     * @param string $path
+     * @return array|bool
      */
-    public static function extension($path)
+    public static function extension(string $path): array|bool
     {
         return pathinfo($path, PATHINFO_EXTENSION);
     }
@@ -236,11 +236,11 @@ class File
      * 获取文件类型
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:09
-     * @param $path
-     * @return false|string
+     * @Time 2025-12-18 13:38:00
+     * @param string $path
+     * @return bool|string
      */
-    public static function type($path)
+    public static function type(string $path): bool|string
     {
         return filetype($path);
     }
@@ -249,11 +249,11 @@ class File
      * 获取文件mine-type
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:19
-     * @param $path
-     * @return false|string
+     * @Time 2025-12-18 13:38:17
+     * @param string $path
+     * @return bool|string
      */
-    public static function mimeType($path)
+    public static function mimeType(string $path): bool|string
     {
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
     }
@@ -262,11 +262,11 @@ class File
      * 获取文件大小
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:25
-     * @param $path
-     * @return false|int
+     * @Time 2025-12-18 13:38:32
+     * @param string $path
+     * @return bool|int
      */
-    public static function size($path)
+    public static function size(string $path): bool|int
     {
         return filesize($path);
     }
@@ -275,11 +275,11 @@ class File
      * 获取文件最后修改时间
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:30
-     * @param $path
-     * @return false|int
+     * @Time 2025-12-18 13:38:49
+     * @param string $path
+     * @return bool|int
      */
-    public static function lastModified($path)
+    public static function lastModified(string $path): bool|int
     {
         return filemtime($path);
     }
@@ -288,11 +288,11 @@ class File
      * 判断是否是个目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:36
-     * @param $directory
+     * @Time 2025-12-18 13:39:02
+     * @param string $directory
      * @return bool
      */
-    public static function isDirectory($directory)
+    public static function isDirectory(string $directory): bool
     {
         return is_dir($directory);
     }
@@ -301,11 +301,11 @@ class File
      * 判断是否是个文件
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:42
-     * @param $file
+     * @Time 2025-12-18 13:39:20
+     * @param string $file
      * @return bool
      */
-    public static function isFile($file)
+    public static function isFile(string $file): bool
     {
         return is_file($file);
     }
@@ -314,14 +314,14 @@ class File
      * 创建目录
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:49
-     * @param $path
-     * @param $mode
-     * @param $recursive
-     * @param $force
+     * @Time 2025-12-18 13:39:41
+     * @param string $path
+     * @param int $mode
+     * @param bool $recursive
+     * @param bool $force
      * @return bool
      */
-    public static function makeDirectory($path, $mode = 0755, $recursive = false, $force = false)
+    public static function makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): bool
     {
         if ($force) {
             return @mkdir($path, $mode, $recursive);
@@ -334,11 +334,11 @@ class File
      * 检查目录情况
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:49:58
-     * @param $path
-     * @return mixed
+     * @Time 2025-12-18 13:39:59
+     * @param string $path
+     * @return string
      */
-    public static function checkDictionary($path)
+    public static function checkDictionary(string $path): string
     {
         //获取目录
         $dictionary = static::dirname($path);
@@ -355,11 +355,11 @@ class File
      * 删除指定文件
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:50:04
-     * @param $paths
+     * @Time 2025-12-18 13:40:18
+     * @param mixed $paths
      * @return bool
      */
-    public static function delete($paths)
+    public static function delete(mixed $paths): bool
     {
         $paths = is_array($paths) ? $paths : func_get_args();
 
@@ -372,7 +372,7 @@ class File
                 } else {
                     $success = false;
                 }
-            } catch (ErrorException $e) {
+            } catch (\ErrorException $e) {
                 $success = false;
             }
         }
@@ -384,11 +384,11 @@ class File
      * 获取文件内容信息
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-09 16:50:10
-     * @param $path
+     * @Time 2025-12-18 13:40:49
+     * @param string $path
      * @return array
      */
-    public static function infos($path)
+    public static function infos(string $path): array
     {
         //整理文件信息
         return [
