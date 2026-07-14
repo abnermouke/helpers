@@ -19,7 +19,7 @@ class Path
     public static function root(string $dictionary = ''): string
     {
         //替换信息
-        $root_path = str_replace(('vendor'.DIRECTORY_SEPARATOR.'abnermouke'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Assists'), '', __DIR__);
+        $root_path = str_replace(('vendor'.DIRECTORY_SEPARATOR.'abnermouke'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Assets'), '', __DIR__);
         //返回目录
         return $root_path.$dictionary;
     }

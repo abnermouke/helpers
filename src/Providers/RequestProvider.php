@@ -27,14 +27,13 @@ class RequestProvider
     private array $options;
     //请求解惑
     private mixed $results;
-
     /**
      * 构造函数
      * @param string $url
-     * @param array $params
+     * @param mixed $params
      * @throws \Exception
      */
-    public function __construct(string $url, array $params)
+    public function __construct(string $url, mixed $params)
     {
         //设置基础参数
         $this->url = $url;
@@ -60,7 +59,7 @@ class RequestProvider
         //尝试发起请求
         try {
             //发起请求
-            $response = $client->request($this->method, $this->url, $this->options);
+            $response = $client->request(strtolower($this->method), $this->url, $this->options);
             //判断请求状态码
             if ($response->getStatusCode() !== 200) {
                 //抛出异常
@@ -81,10 +80,10 @@ class RequestProvider
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
      * @Time 2025-10-10 14:44:49
-     * @return RequestProvider
+     * @return object
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function form(): static
+    public function form(): object
     {
         //初始化请求参数
         $this->options = [
@@ -99,16 +98,17 @@ class RequestProvider
      * JSON提交（application/json）
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-10 14:44:49
-     * @return RequestProvider
+     * @Time 2025-12-18 16:06:27
+     * @param mixed $json
+     * @return object
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function json(): static
+    public function json(mixed $json = false): object
     {
         //初始化请求参数
         $this->options = [
             'headers' => $this->headers,
-            'json' => $this->params
+            'json' => $json ?: $this->params
         ];
         //发起请求
         return $this->request();
@@ -118,16 +118,17 @@ class RequestProvider
      * BODY提交
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
-     * @Time 2025-10-10 14:44:49
-     * @return RequestProvider
+     * @Time 2025-12-18 16:05:58
+     * @param mixed $body
+     * @return object
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function body(): static
+    public function body(mixed $body = false): object
     {
         //初始化请求参数
         $this->options = [
             'headers' => $this->headers,
-            'body' => $this->params
+            'body' => $body ?: $this->params
         ];
         //发起请求
         return $this->request();
@@ -183,34 +184,32 @@ class RequestProvider
         //返回当前实例
         return $this;
     }
-
     /**
      * 设置请求参数
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
      * @Time 2025-10-10 14:36:19
-     * @param array $params
+     * @param mixed $params
      * @return $this
      */
-    public function params(array $params = []): static
+    public function params(mixed $params = []): static
     {
         //设置请求参数
         $this->params = $params;
         //返回当前实例
         return $this;
     }
-
     /**
      * 创建实例
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Company Chongqing Yunni Network Technology Co., Ltd.
      * @Time 2025-10-10 14:36:08
      * @param string $url
-     * @param array $params
+     * @param mixed $params
      * @return RequestProvider
      * @throws \Exception
      */
-    public static function make(string $url, array $params = []): RequestProvider
+    public static function make(string $url, mixed $params = []): RequestProvider
     {
         //创建实例
         return new RequestProvider($url, $params);
